@@ -1,3 +1,5 @@
+// & queries image files, creates array with img URLs
+
 // cache images
 // eslint-disable-next-line no-undef
 let imgQuery = require.context('../icons', false, /\.(png|svg|jpg|jpeg|gif)$/i);
