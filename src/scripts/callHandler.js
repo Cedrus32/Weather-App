@@ -5,13 +5,14 @@
 // ! add support for daylight-savings (separate API)
 
 const callHandler = (() => {
+    // data
     const apiKey = '280aac734d9fdeeac311819cdc27c444';
     let units = 'imperial';
     let timezoneOffset;
 
+    // methods
     async function callAPI(location) {
         try {
-            // location = 'Chicago';
             const fetchURLs = [`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${units}`,
                                `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${units}`
                               ];
@@ -26,7 +27,6 @@ const callHandler = (() => {
             console.log(error);
         }
     }
-
     function scrubData(objectArray) {
         console.log(objectArray);
         let currentWeather = objectArray[0];
@@ -58,7 +58,6 @@ const callHandler = (() => {
         let allData = {currentData, forecastData};
         console.log(allData);
     }
-
     function convertToLocalTime(timeValue) {
         let utcString = getUTCTimestamp(timeValue);
         let utcSplit = utcString.split(':');
@@ -71,7 +70,6 @@ const callHandler = (() => {
 
         return localString;
     }
-
     function getUTCTimestamp(timeValue) {
         let unixTimestamp = new Date(timeValue * 1000);
         let utcString = unixTimestamp.toUTCString();
@@ -80,8 +78,9 @@ const callHandler = (() => {
         return utcString;
     }
 
+    // make public
     return {
-        callAPI,
+        callAPI,    // used by index.js
     }
 
 })();

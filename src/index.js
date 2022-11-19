@@ -5,12 +5,6 @@ import './styles/shaping.css';
 import './styles/colors.css';
 // import iconsArray from './scripts/icons.js';
 import callHandler from './scripts/callHandler.js';
+import form from './scripts/form.js';
 
-// import Img from './img.png';
-// import XmlData from './data.xml';
-// import CsvData from './data.csv';
-
-// manager function here
-
-console.log('webpack is working!');
 callHandler.callAPI('Chicago');
