@@ -1,3 +1,5 @@
+import events from '../events.js';
+
 // & makes API calls, scrubs resolution data for DOM
 
 // ! add support for 12-hour times
@@ -28,7 +30,7 @@ const callHandler = (() => {
         }
     }
     function scrubData(objectArray) {
-        console.log(objectArray);
+        //// console.log(objectArray);
         let currentWeather = objectArray[0];
         let forecastWeather = objectArray[1];
         timezoneOffset = (currentWeather.timezone / 3600);
@@ -78,11 +80,13 @@ const callHandler = (() => {
         return utcString;
     }
 
+    // event subscriptions
+    events.subscribe('callAPI', callAPI);   // published by forms.js (getSearchValue)
+
     // make public
     return {
         callAPI,    // used by index.js
     }
-
 })();
 
 export default callHandler;
