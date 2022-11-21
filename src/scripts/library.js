@@ -41,9 +41,9 @@ const library = (() => {
     }
     function loadSavedState() {
         let mainCity = getMainCity();
-        renderCity(mainCity);
+        callAPI(mainCity);
     }
-    function renderCity(city) {
+    function callAPI(city) {
         events.publish('callAPI', city)  // subscribed by callHandler.js
     }
 
@@ -63,7 +63,7 @@ const library = (() => {
     function saveCityAsMain(location) {
         saveCity(location);
         changeMainCityIndex();
-        renderCity(location);
+        callAPI(location);
     }
     function deleteCity(location) {
         console.log('enter deleteCity()');
