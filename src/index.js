@@ -5,8 +5,8 @@ import './styles/shaping.css';
 import './styles/colors.css';
 
 // import iconsArray from './scripts/icons.js';
-import events from './events.js';
-import storage from './storage.js';
+import events from './scripts/events.js';
+import storage from './scripts/storage.js';
 import startup from './scripts/startup.js';
 import library from './scripts/library.js';
 import form from './scripts/form.js';

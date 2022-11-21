@@ -1,5 +1,5 @@
-import events from '../events';
-import storage from '../storage';
+import events from './events';
+import storage from './storage';
 
 // & backend manager module containing library/item classes & methods
 

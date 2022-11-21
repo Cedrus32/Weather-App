@@ -1,4 +1,4 @@
-import events from '../events.js';
+import events from './events.js';
 
 // & makes API calls, scrubs resolution data for DOM
 
