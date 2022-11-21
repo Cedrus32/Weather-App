@@ -11,6 +11,7 @@ import startup from './scripts/startup.js';
 import library from './scripts/library.js';
 import form from './scripts/form.js';
 import callHandler from './scripts/callHandler.js';
+import display from './scripts/display.js';
 
 storage.check();
 events.view();
