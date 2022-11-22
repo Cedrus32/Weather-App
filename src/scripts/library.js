@@ -34,14 +34,14 @@ const library = (() => {
         localStorage.setItem('itemCount', itemCount);
     }
     function createDefaultState(array) {
-        for (let i = 0; i < array.length; i++) {
+        for (let i = 0; i < (array.length); i++) {
             saveCity(array[i]);
         }
         loadSavedState();
     }
     function loadSavedState() {
         let mainCity = getMainCity();
-        callAPI(mainCity);
+        callAPI(mainCity);  // subscribed by callHandler.js
     }
     function callAPI(city) {
         events.publish('callAPI', city)  // subscribed by callHandler.js
@@ -60,15 +60,15 @@ const library = (() => {
         // console.log(JSON.parse(localStorage.getItem('itemCount')));
         storage.view();
     }
-    function saveCityAsMain(location) {
+    function saveCityAsMain(location) { // ! adust direction locations are saved and loaded -- front-loaded or back-loaded?
         saveCity(location);
         changeMainCityIndex();
-        callAPI(location);
+        loadSavedState();
     }
     function deleteCity(location) {
         console.log('enter deleteCity()');
         let i;
-        for (i = 0; i < cityArray.length; i++) {
+        for (i = 0; i < (cityArray.length); i++) {
             if (cityArray[i] === location) {
                 cityArray.splice(i, 1);
                 downItemCount();
@@ -80,9 +80,9 @@ const library = (() => {
         console.log(cityArray);
         downMainCityIndex();
         if (mainCityIndex < 0) {
-            events.publish('renderData', '')  // subscribed by display.js
+            events.publish('renderData', '');   // subscribed by display.js
         } else {
-            events.publish('renderData', cityArray(mainCityIndex))  // subscribed by display.js
+            callAPI(cityArray[mainCityIndex]);  // subscribed by callHandler.js
         }
     }
 

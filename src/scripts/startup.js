@@ -9,7 +9,7 @@ const startup = (() => {
     // methods
     function startup(loadLocalData, loadDefaultData) {
         events.publish('setCountersOnPageLoad', '');  // subscribed by library.js,
-        if (loadLocalData === true) {   // ! IN PROGRESS
+        if (loadLocalData === true) {
             console.log('loading localStorage ...');
             events.publish('loadSavedState', '');    // subscribed by library.js
         } else if (loadDefaultData === true) {

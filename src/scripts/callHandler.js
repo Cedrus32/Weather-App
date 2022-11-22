@@ -59,6 +59,7 @@ const callHandler = (() => {
         }
         let allData = {currentData, forecastData};
         console.log(allData);
+        events.publish('renderData', allData);  // subscribed by display.js
     }
     function convertToLocalTime(timeValue) {
         let utcString = getUTCTimestamp(timeValue);
@@ -81,7 +82,7 @@ const callHandler = (() => {
     }
 
     // event subscriptions
-    events.subscribe('callAPI', callAPI);   // published by forms.js (getSearchValue)
+    events.subscribe('callAPI', callAPI);   // published by forms.js (getSearchValue), library.js (callAPI)
 
     // make public
     return {

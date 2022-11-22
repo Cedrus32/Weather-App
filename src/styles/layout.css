@@ -1,0 +1,4 @@
+#main-city {
+    display: flex;
+    flex-flow: column;
+}
