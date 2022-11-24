@@ -21,7 +21,7 @@ const callHandler = (() => {
             const promises = fetchURLs.map(url => fetch(url));
             const responses = await Promise.all(promises);
             const responseObjects = [];
-            for (let i = 0; i < responses.length; i++) {
+            for (let i = 0; i < (responses.length); i++) {
                 responseObjects.push(await responses[i].json());
             }
             scrubData(responseObjects);
@@ -34,26 +34,25 @@ const callHandler = (() => {
         let currentWeather = objectArray[0];
         let forecastWeather = objectArray[1];
         timezoneOffset = (currentWeather.timezone / 3600);
-        let currentData = {location: currentWeather.name,
-                           weatherType: currentWeather.weather[0].main,
-                           weatherDescription: currentWeather.weather[0].description,
-                           precip: Math.round(forecastWeather.list[0].pop * 100),
-                           tempCurrent: Math.round(currentWeather.main.temp),
-                           tempMin: Math.round(currentWeather.main.temp_min),
-                           tempMax: Math.round(currentWeather.main.temp_max),
-                           tempFeelsLike: Math.round(currentWeather.main.feels_like),
-                           humidity: Math.round(currentWeather.main.humidity),
-                           windDirection: currentWeather.wind.deg,
-                           windspeed: Math.round(currentWeather.wind.speed),
-                           sunrise: convertToLocalTime(currentWeather.sys.sunrise),
-                           sunset: convertToLocalTime(currentWeather.sys.sunset)
+        let currentData = {primaryData: {tempCurrent: Math.round(currentWeather.main.temp),
+                                         tempFeelsLike: Math.round(currentWeather.main.feels_like),
+                                         tempMin: Math.round(currentWeather.main.temp_min),
+                                         tempMax: Math.round(currentWeather.main.temp_max),
+                                         location: currentWeather.name,
+                                         weatherType: currentWeather.weather[0].main,
+                                        },
+                           additionalData: {precip: Math.round(forecastWeather.list[0].pop * 100),
+                                            humidity: Math.round(currentWeather.main.humidity),
+                                            windspeed: Math.round(currentWeather.wind.speed),
+                                            windDirection: currentWeather.wind.deg,
+                                           }
                           };
         let forecastData = {};
         for (let i = 0; i <= 8; i++) {
-            let hourlyData = {weatherType: forecastWeather.list[i].weather[0].main,
-                              temp: Math.round(forecastWeather.list[i].main.temp),
+            let hourlyData = {dateTime: convertToLocalTime(forecastWeather.list[i].dt),
+                              weatherType: forecastWeather.list[i].weather[0].main,
                               precip: Math.round(forecastWeather.list[i].pop * 100),
-                              dateTime: convertToLocalTime(forecastWeather.list[i].dt),
+                              temp: Math.round(forecastWeather.list[i].main.temp),
                              }
             forecastData[i] = hourlyData;
         }
@@ -82,11 +81,11 @@ const callHandler = (() => {
     }
 
     // event subscriptions
-    events.subscribe('callAPI', callAPI);   // published by forms.js (getSearchValue), library.js (callAPI)
+    events.subscribe('callAPI', callAPI);   // published by index.js, forms.js (getSearchValue)
 
     // make public
     return {
-        callAPI,    // used by index.js
+        callAPI,    // used by index.js, forms.js
     }
 })();
 
