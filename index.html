@@ -11,26 +11,30 @@
 
         <template id='primary'>
             <section class='primary'>
-                <div id='current-temp' itemprop='tempCurrent'></div>
-                <div id='feelslike-temp' itemprop='tempFeelsLike'></div>
-                <div id='city' itemprop='location'></div>
+                <div class='current-temp' itemprop='tempCurrent'></div>
+                <div class='feelslike-temp' itemprop='tempFeelsLike'></div>
+                <div class='minmax-temp'>
+                    <div itemprop='tempMin'></div>
+                    <div itemprop='tempMin'></div>
+                </div>
+                <div class='city' itemprop='location'></div>
+                <div class='weather-type' itemprop='weatherType'></div>
             </section>
         </template>
         <template id='additional'>
             <section class='additional'>
-                <div id='sunrise' itemprop='sunrise'></div>
-                <div id='sunset' itemprop='sunset'></div>
-                <div id='windspeed' itemprop='windspeed'></div>
-                <div id='wind-direction' itemprop='windDirection'></div>
-                <div id='humidity' itemprop='humidity'></div>
+                <div class='main-precip' itemprop='precip'></div>
+                <div class='windspeed' itemprop='windspeed'></div>
+                <div class='wind-direction' itemprop='windDirection'></div>
+                <div class='humidity' itemprop='humidity'></div>
             </section>
         </template>
         <template id='hourly'>
             <div class='hourly' itemprop=''>
                 <div class='time' itemprop='dateTime'></div>
                 <div class='weather' itemprop='weatherType'></div>
-                <div class='precipitation' itemprop='precip'></div>
-                <div class='temperature' itemprop='temperature'></div>
+                <div class='hourly-precip' itemprop='precip'></div>
+                <div class='hourly-temp' itemprop='temp'></div>
             </div>
         </template>
         
