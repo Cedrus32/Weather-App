@@ -1,3 +1,4 @@
+main,
 .current,
 .primary,
 .additional,
@@ -7,6 +8,7 @@
     gap: 1vh;
 }
 
+main,
 .current,
 .primary,
 .hourly {

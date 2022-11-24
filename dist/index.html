@@ -8,92 +8,49 @@
         <meta name='description' content=''>
         <script src=''></script>
     </head>
-        
-        <form>
-            <input type='text' placeholder='City Name'>
-            <button type='button'>Search</button>
-        </form>
 
-        <!-- <header> -->
-            <!-- city menu -->
-            <!-- date -->
-            <!-- C/F switcher -->
-        <!-- </header> -->
-        <!-- ?? city carosel -->
-            <!-- ?? previous city -->
-            <section id='current-city'>
-                <section class='current' itemprop='currentData'>
-                    <section class='primary'>
-                        <div id='current-temp' itemprop='tempCurrent'></div>
-                        <div id='feelslike-temp' itemprop='tempFeelsLike'></div>
-                        <div id='city' itemprop='location'></div>
-                    </section>
-                    <section class='additional'>
-                        <div id='sunrise' itemprop='sunrise'></div>
-                        <div id='sunset' itemprop='sunset'></div>
-                        <div id='windspeed' itemprop='windspeed'></div>
-                        <div id='wind-direction' itemprop='windDirection'></div>
-                        <div id='humidity' itemprop='humidity'></div>
-                    </section>
-                </section>
-                <section class='forecast' itemprop='forecastData'>
-                    <div class='hourly' itemprop='0'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='1'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='2'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='3'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='4'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='5'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='6'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='7'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                    <div class='hourly' itemprop='8'>
-                        <div class='time' itemprop='dateTime'></div>
-                        <div class='weather' itemprop='weatherType'></div>
-                        <div class='precipitation' itemprop='precip'></div>
-                        <div class='temperature' itemprop='temperature'></div>
-                    </div>
-                </section>
+        <template id='primary'>
+            <section class='primary'>
+                <div id='current-temp' itemprop='tempCurrent'></div>
+                <div id='feelslike-temp' itemprop='tempFeelsLike'></div>
+                <div id='city' itemprop='location'></div>
             </section>
-            <!-- ?? next city -->
+        </template>
+        <template id='additional'>
+            <section class='additional'>
+                <div id='sunrise' itemprop='sunrise'></div>
+                <div id='sunset' itemprop='sunset'></div>
+                <div id='windspeed' itemprop='windspeed'></div>
+                <div id='wind-direction' itemprop='windDirection'></div>
+                <div id='humidity' itemprop='humidity'></div>
+            </section>
+        </template>
+        <template id='hourly'>
+            <div class='hourly' itemprop=''>
+                <div class='time' itemprop='dateTime'></div>
+                <div class='weather' itemprop='weatherType'></div>
+                <div class='precipitation' itemprop='precip'></div>
+                <div class='temperature' itemprop='temperature'></div>
+            </div>
+        </template>
+        
+        <!-- <header> -->
+            <form>
+                <input type='text' placeholder='City Name'>
+                <button type='button'>Search</button>
+            </form>
+            <!-- C/F switcher -->
+            <!-- 12/24 hour switcher -->
+        <!-- </header> -->
+
+        <main>
+            <section class='current' itemprop='currentData'></section>
+            <section class='forecast' itemprop='forecastData'></section>
+        </main>
+
+        <footer>
+            <!-- link to github -->
+        </footer>
 
         <script src='./index.main.js' async></script>
 

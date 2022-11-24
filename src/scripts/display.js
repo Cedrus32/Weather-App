@@ -1,38 +1,47 @@
 import events from './events.js';
-import { default as div, span, p, h2, h4, ul, li, input, select, option, label, legend, img } from './elements.js';
 
 // & handles dynamic display elements
 
 const display = (() => {
 
     // cache DOM
-    let currentCityContainer = document.getElementById('current-city');
+    let main = document.querySelector('main');
 
     // methods
     function renderData(dataObject) {
         if (dataObject === '') {
-            currentCityContainer.textContent = 'NO CITY QUERIED';  // ! display error message from call
+            main.textContent = 'NO CITY QUERIED';  // ! display error message from call
         } else {
-            for (let i = 0; i < (currentCityContainer.childElementCount); i++) {
-                let sectionOuter = currentCityContainer.children[i];
-                let itempropOuter = sectionOuter.getAttribute('itemprop');
-                switch (itempropOuter) {
+            for (let i = 0; i < (main.childElementCount); i++) {
+                let child = main.children[i];
+                let childItemprop = child.getAttribute('itemprop');
+                switch (childItemprop) {
                     case 'currentData':
-                        renderCurrentData(sectionOuter, dataObject['currentData']);
+                        renderCurrentData(child, dataObject['currentData']);
                         break;
                     case 'forecastData':
-                        renderForecastData(sectionOuter, dataObject['forecastData']);
+                        renderForecastData(child, dataObject['forecastData']);
                 }
             }
         }
     }
     function renderCurrentData(section, dataObject) {
-        for (let i = 0; i < (section.childElementCount); i++) {
-            let sectionInner = section.children[i];
-            for (let j = 0; j < (sectionInner.childElementCount); j++) {
-                let div = sectionInner.children[j];
-                let divItemprop = div.getAttribute('itemprop');
-                let datapoint = isolateData(dataObject, divItemprop);
+        console.log('enter renderCurrentData()...');
+        let sectionChild;
+        for (let i = 0; i < 2; i++) {
+            switch (i) {
+                case 0:
+                    sectionChild = generateTemplate('primary');
+                    break;
+                case 1:
+                    sectionChild = generateTemplate('additional');
+            }
+            section.appendChild(sectionChild);
+            sectionChild = section.children[i];
+            for (let j = 0; j < (sectionChild.childElementCount); j++) {
+                let div = sectionChild.children[j];
+                let itemprop = div.getAttribute('itemprop');
+                let datapoint = isolateData(dataObject, itemprop);
                 div.textContent = datapoint;
             }
         }
@@ -41,11 +50,12 @@ const display = (() => {
         console.log('enter renderForecastData()')
         console.log(section);
         console.log(dataObject);
-        for (let i = 0; i < (section.childElementCount); i++) {
-            let divInner = section.children[i];
-            console.log(divInner);
-            for (let j = 0; j < (divInner.childElementCount); j++) {
-                let div = divInner.children[j];
+        for (let i = 0; i < 9; i++) {
+            let divGroup = generateTemplate('hourly');
+            section.appendChild(divGroup);
+            divGroup = section.children[i];
+            for (let j = 0; j < (divGroup.childElementCount); j++) {
+                let div = divGroup.children[j];
                 let divItemprop = div.getAttribute('itemprop');
                 let datapoint = isolateData(dataObject[`${i}`], divItemprop);
                 div.textContent = datapoint;
@@ -60,6 +70,10 @@ const display = (() => {
                 return dataObject[dataKey];
             }
         }
+    }
+    function generateTemplate (type) {
+        let nodeTree = document.getElementById(type).content.cloneNode(true);
+        return nodeTree;
     }
     // function clearContent(element) {
     //     element.textContent = '';
