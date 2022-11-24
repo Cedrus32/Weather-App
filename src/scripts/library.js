@@ -12,7 +12,7 @@ const library = (() => {
     // state methods
     function setCounters() {
         storage.view();
-        console.log(`itemCount (for state check): ${localStorage.getItem('itemCount')}`)
+        // console.log(`itemCount (for state check): ${localStorage.getItem('itemCount')}`)
         if ((localStorage.getItem('itemCount') === null)) {
             itemCount = 0;
             cityArray = [];
@@ -22,8 +22,8 @@ const library = (() => {
             itemCount = JSON.parse(localStorage.getItem('itemCount'));
             cityArray = JSON.parse(localStorage.getItem('cityArray'));
         }
-        console.log(`cityArray: ${itemCount}`);
-        console.log(`cityArray: ${cityArray}`);
+        // console.log(`cityArray: ${itemCount}`);
+        // console.log(`cityArray: ${cityArray}`);
     }
     function upItemCount() {
         itemCount++;
@@ -88,7 +88,7 @@ const library = (() => {
 
     // indexing methods
     function getMainCity() {
-        console.log(cityArray[mainCityIndex]);
+        // console.log(cityArray[mainCityIndex]);
         return cityArray[mainCityIndex];
     }
     function upMainCityIndex() {

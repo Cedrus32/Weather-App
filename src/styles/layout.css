@@ -1,4 +1,15 @@
-#main-city {
+.current,
+.primary,
+.additional {
     display: flex;
+    gap: 1vh;
+}
+
+.current,
+.primary {
     flex-flow: column;
+}
+
+.additional {
+    flex-flow: row;
 }

@@ -32,7 +32,7 @@ const storage = (() => {
         let loadDefault;
         // localStorage.clear();
         if (storageAvailable('localStorage')) {
-            console.log(`previousLoad: ${localStorage.getItem('previousLoad')}`);
+            // console.log(`previousLoad: ${localStorage.getItem('previousLoad')}`);
             if (localStorage.getItem('previousLoad') === null) {
                 localStorage.setItem('previousLoad', 'true'); // set 'previousLoad' === true for future loads
                 loadLocal = false;
@@ -48,10 +48,10 @@ const storage = (() => {
         events.publish('storageCheckComplete', loadLocal, loadDefault);    // subscribed by startup.js
     }
     function view() {
-        console.log('enter storage.view()');
+        console.log('enter storage.view() ...');
         for (let i = 0; i < localStorage.length; i++) {
             let lsKey = localStorage.key(i);
-            console.log(`${lsKey}: ${JSON.parse(localStorage.getItem(lsKey))}`);
+            console.log(`- ${lsKey}: ${JSON.parse(localStorage.getItem(lsKey))}`);
         }
     }
 

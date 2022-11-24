@@ -16,7 +16,7 @@ const callHandler = (() => {
     async function callAPI(location) {
         try {
             const fetchURLs = [`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${units}`,
-                               `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${units}`
+                               `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${units}`,
                               ];
             const promises = fetchURLs.map(url => fetch(url));
             const responses = await Promise.all(promises);
