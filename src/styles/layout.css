@@ -1,15 +1,19 @@
 .current,
 .primary,
-.additional {
+.additional,
+.forecast,
+.hourly {
     display: flex;
     gap: 1vh;
 }
 
 .current,
-.primary {
+.primary,
+.hourly {
     flex-flow: column;
 }
 
-.additional {
+.additional,
+.forecast {
     flex-flow: row;
 }

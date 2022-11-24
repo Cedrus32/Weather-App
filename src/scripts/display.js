@@ -21,7 +21,7 @@ const display = (() => {
                         renderCurrentData(sectionOuter, dataObject['currentData']);
                         break;
                     case 'forecastData':
-                        // renderForecastData(sectionOuter, dataObject['forecastData']);
+                        renderForecastData(sectionOuter, dataObject['forecastData']);
                 }
             }
         }
@@ -33,6 +33,21 @@ const display = (() => {
                 let div = sectionInner.children[j];
                 let divItemprop = div.getAttribute('itemprop');
                 let datapoint = isolateData(dataObject, divItemprop);
+                div.textContent = datapoint;
+            }
+        }
+    }
+    function renderForecastData(section, dataObject) {
+        console.log('enter renderForecastData()')
+        console.log(section);
+        console.log(dataObject);
+        for (let i = 0; i < (section.childElementCount); i++) {
+            let divInner = section.children[i];
+            console.log(divInner);
+            for (let j = 0; j < (divInner.childElementCount); j++) {
+                let div = divInner.children[j];
+                let divItemprop = div.getAttribute('itemprop');
+                let datapoint = isolateData(dataObject[`${i}`], divItemprop);
                 div.textContent = datapoint;
             }
         }
