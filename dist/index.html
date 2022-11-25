@@ -21,7 +21,6 @@
                 <div class='weather-type' itemprop='weatherType'></div>
             </section>
         </template>
-
         <template id='additional'>
             <section class='additional'>
                 <div class='main-precip' itemprop='precip'>
@@ -38,7 +37,6 @@
                 </div>
             </section>
         </template>
-
         <template id='hourly'>
             <div class='hourly' itemprop=''>
                 <div class='time' itemprop='dateTime'></div>
@@ -51,10 +49,10 @@
         <header>
             <form>
                 <input type='text' placeholder='City Name'>
-                <button type='button'>Search</button>
+                <button type='button' id='search'>Search</button>
             </form>
-            <!-- C/F switcher -->
-            <!-- 12/24 hour switcher -->
+            <button type='button' id='cf-switch'>°F</button>
+            <button type='button' id='time-switch'>24 hr</button>
         </header>
 
         <main>

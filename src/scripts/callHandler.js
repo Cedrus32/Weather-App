@@ -9,14 +9,19 @@ import events from './events.js';
 const callHandler = (() => {
     // data
     const apiKey = '280aac734d9fdeeac311819cdc27c444';
-    let units = 'imperial';
+    let unitsSystem = 'imperial';
+    let unitsCF = '°F';
+    let unitsSpeed = 'mph';
+    // let unitsTime = 24;
+    let currentLocation;
     let timezoneOffset;
 
     // methods
     async function callAPI(location) {
         try {
-            const fetchURLs = [`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${units}`,
-                               `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${units}`,
+            currentLocation = location;
+            const fetchURLs = [`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${unitsSystem}`,
+                               `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${unitsSystem}`,
                               ];
             const promises = fetchURLs.map(url => fetch(url));
             const responses = await Promise.all(promises);
@@ -34,16 +39,16 @@ const callHandler = (() => {
         let currentWeather = objectArray[0];
         let forecastWeather = objectArray[1];
         timezoneOffset = (currentWeather.timezone / 3600);
-        let currentData = {primaryData: {tempCurrent: `${Math.round(currentWeather.main.temp)}°F`,
-                                         tempFeelsLike: `feels like ${Math.round(currentWeather.main.feels_like)}°F`,
-                                         tempMin: `lo: ${Math.round(currentWeather.main.temp_min)}°F`,
-                                         tempMax: `hi: ${Math.round(currentWeather.main.temp_max)}°F`,
+        let currentData = {primaryData: {tempCurrent: `${Math.round(currentWeather.main.temp)}${unitsCF}`,
+                                         tempFeelsLike: `feels like ${Math.round(currentWeather.main.feels_like)}${unitsCF}`,
+                                         tempMin: `lo: ${Math.round(currentWeather.main.temp_min)}${unitsCF}`,
+                                         tempMax: `hi: ${Math.round(currentWeather.main.temp_max)}${unitsCF}`,
                                          location: currentWeather.name,
                                          weatherType: currentWeather.weather[0].main,
                                         },
                            additionalData: {precip: `${Math.round(forecastWeather.list[0].pop * 100)}%`,
                                             humidity: `${Math.round(currentWeather.main.humidity)}%`,
-                                            wind: `${convertToCompassDirection(currentWeather.wind.deg)}, ${Math.round(currentWeather.wind.speed)} mph`
+                                            wind: `${convertToCompassDirection(currentWeather.wind.deg)}, ${getWindspeed(currentWeather.wind.speed)} ${unitsSpeed}`
                                            }
                           };
         let forecastData = {};
@@ -51,7 +56,7 @@ const callHandler = (() => {
             let hourlyData = {dateTime: convertToLocalTime(forecastWeather.list[i].dt),
                               weatherType: forecastWeather.list[i].weather[0].main,
                               precip: `${Math.round(forecastWeather.list[i].pop * 100)}%`,
-                              temp: `${Math.round(forecastWeather.list[i].main.temp)}°F`,
+                              temp: `${Math.round(forecastWeather.list[i].main.temp)}${unitsCF}`,
                              }
             forecastData[i] = hourlyData;
         }
@@ -136,13 +141,38 @@ const callHandler = (() => {
         }
         return dir;
     }
+    function getWindspeed(windspeed) {
+        if (unitsSystem === 'imperial') {
+            return Math.round(windspeed);
+        } else {
+            let kmph = Math.round(windspeed * 3.6);
+            return kmph;
+        }
+    }
+    
+    // form methods
+    function setTempUnits() {
+        switch (unitsSystem) {
+            case 'imperial':
+                unitsSystem = 'metric';
+                unitsCF = '°C';
+                unitsSpeed = 'km/h';
+                break;
+            case 'metric':
+                unitsSystem = 'imperial';
+                unitsCF = '°F';
+                unitsSpeed = 'mph';
+        }
+        callAPI(currentLocation);
+    }
 
     // event subscriptions
     events.subscribe('callAPI', callAPI);   // published by index.js, forms.js (getSearchValue)
+    events.subscribe('setTempUnits', setTempUnits); // published by form.js (toggleCF)
 
     // make public
     return {
-        callAPI,    // used by index.js, forms.js
+        callAPI,    // used by index.js
     }
 })();
 

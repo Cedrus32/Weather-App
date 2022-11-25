@@ -5,7 +5,7 @@ import events from './events.js';
 const display = (() => {
 
     // cache DOM
-    let main = document.querySelector('main');
+    const main = document.querySelector('main');
 
     // methods
     function renderData(dataObject) {
@@ -44,7 +44,7 @@ const display = (() => {
             }
             section.appendChild(sectionChild);
             sectionChild = section.children[i];
-            console.log(sectionChild);
+            // console.log(sectionChild);
             for (let j = 0; j < (sectionChild.childElementCount); j++) {
                 let div;
                 let span;
