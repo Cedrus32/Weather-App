@@ -14,6 +14,9 @@ const display = (() => {
         } else {
             for (let i = 0; i < (main.childElementCount); i++) {
                 let child = main.children[i];
+                if (child.childElementCount > 0) {
+                    clearSection(child);
+                }
                 let childItemprop = child.getAttribute('itemprop');
                 switch (childItemprop) {
                     case 'currentData':
@@ -43,18 +46,23 @@ const display = (() => {
             sectionChild = section.children[i];
             for (let j = 0; j < (sectionChild.childElementCount); j++) {
                 let div;
+                let itemprop;
+                let datapoint;
                 switch (true) {
                     case (i === 0 && j === 2):
                         for (let k = 0; k < 2; k++) {
                             div = sectionChild.children[j].children[k];
+                            itemprop = div.getAttribute('itemprop');
+                            datapoint = dataChunk[itemprop];
+                            div.textContent = datapoint;
                         }
                         break;
                     default:
                         div = sectionChild.children[j];
+                        itemprop = div.getAttribute('itemprop');
+                        datapoint = dataChunk[itemprop];
+                        div.textContent = datapoint;
                 }
-                let itemprop = div.getAttribute('itemprop');
-                let datapoint = dataChunk[itemprop];
-                div.textContent = datapoint;
             }
         }
     }
@@ -73,13 +81,13 @@ const display = (() => {
             }
         }
     }
-    function generateTemplate (type) {
+    function generateTemplate(type) {
         let nodeTree = document.getElementById(type).content.cloneNode(true);
         return nodeTree;
     }
-    // function clearContent(element) {
-    //     element.textContent = '';
-    // }
+    function clearSection(section) {
+        section.innerHTML = '';
+    }
 
     // event subscriptions
     events.subscribe('renderData', renderData)    // published by library.js (deleteCity), callHandler.js (scrubData)

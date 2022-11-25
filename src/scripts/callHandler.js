@@ -30,36 +30,37 @@ const callHandler = (() => {
         }
     }
     function scrubData(objectArray) {
-        //// console.log(objectArray);
+        // console.log(objectArray);
         let currentWeather = objectArray[0];
         let forecastWeather = objectArray[1];
         timezoneOffset = (currentWeather.timezone / 3600);
-        let currentData = {primaryData: {tempCurrent: Math.round(currentWeather.main.temp),
-                                         tempFeelsLike: Math.round(currentWeather.main.feels_like),
-                                         tempMin: Math.round(currentWeather.main.temp_min),
-                                         tempMax: Math.round(currentWeather.main.temp_max),
+        let currentData = {primaryData: {tempCurrent: `${Math.round(currentWeather.main.temp)}°F`,
+                                         tempFeelsLike: `feels like ${Math.round(currentWeather.main.feels_like)}°F`,
+                                         tempMin: `lo: ${Math.round(currentWeather.main.temp_min)}°F`,
+                                         tempMax: `hi: ${Math.round(currentWeather.main.temp_max)}°F`,
                                          location: currentWeather.name,
                                          weatherType: currentWeather.weather[0].main,
                                         },
-                           additionalData: {precip: Math.round(forecastWeather.list[0].pop * 100),
-                                            humidity: Math.round(currentWeather.main.humidity),
-                                            windspeed: Math.round(currentWeather.wind.speed),
-                                            windDirection: currentWeather.wind.deg,
+                           additionalData: {precip: `${Math.round(forecastWeather.list[0].pop * 100)}% chance of precipitation`,
+                                            humidity: `${Math.round(currentWeather.main.humidity)}% humidity`,
+                                            wind: `wind from ${convertToCompassDirection(currentWeather.wind.deg)} at ${Math.round(currentWeather.wind.speed)} mph`
                                            }
                           };
         let forecastData = {};
         for (let i = 0; i <= 8; i++) {
             let hourlyData = {dateTime: convertToLocalTime(forecastWeather.list[i].dt),
                               weatherType: forecastWeather.list[i].weather[0].main,
-                              precip: Math.round(forecastWeather.list[i].pop * 100),
-                              temp: Math.round(forecastWeather.list[i].main.temp),
+                              precip: `${Math.round(forecastWeather.list[i].pop * 100)} chance of precipitation`,
+                              temp: `${Math.round(forecastWeather.list[i].main.temp)}°F`,
                              }
             forecastData[i] = hourlyData;
         }
         let allData = {currentData, forecastData};
-        console.log(allData);
+        // console.log(allData);
         events.publish('renderData', allData);  // subscribed by display.js
     }
+
+    // helper methods
     function convertToLocalTime(timeValue) {
         let utcString = getUTCTimestamp(timeValue);
         let utcSplit = utcString.split(':');
@@ -78,6 +79,62 @@ const callHandler = (() => {
         let utcSplit = utcString.split(' ');
         utcString = utcSplit[4].slice(0, -3);
         return utcString;
+    }
+    function convertToCompassDirection(deg) {
+        let dir;
+        switch (true) {
+            case (0 <= deg < 11):
+                dir = 'N';
+                break;
+            case (11 <= deg < 34):
+                dir = 'NNE';
+                break;
+            case (34 <= deg < 56):
+                dir = 'NE';
+                break;
+            case (56 <= deg < 79):
+                dir = 'ENE';
+                break;
+            case (79 <= deg < 101):
+                dir = 'E';
+                break;
+            case (101 <= deg < 124):
+                dir = 'ESE';
+                break;
+            case (124 <= deg < 146):
+                dir = 'SE';
+                break;
+            case (146 <= deg < 169):
+                dir = 'SSE';
+                break;
+            case (169 <= deg < 191):
+                dir = 'S';
+                break;
+            case (191 <= deg < 214):
+                dir = 'SSW';
+                break;
+            case (214 <= deg < 236):
+                dir = 'SW';
+                break;
+            case (236 <= deg < 259):
+                dir = 'WSW';
+                break;
+            case (259 <= deg < 281):
+                dir = 'W';
+                break;
+            case (281 <= deg < 304):
+                dir = 'WNW';
+                break;
+            case (304 <= deg < 326):
+                dir = 'NW';
+                break;
+            case (326 <= deg < 349):
+                dir = 'NNW';
+                break;
+            case (349 <= deg <= 360):
+                dir = 'N';
+        }
+        return dir;
     }
 
     // event subscriptions

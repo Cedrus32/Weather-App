@@ -15,20 +15,21 @@
                 <div class='feelslike-temp' itemprop='tempFeelsLike'></div>
                 <div class='minmax-temp'>
                     <div itemprop='tempMin'></div>
-                    <div itemprop='tempMin'></div>
+                    <div itemprop='tempMax'></div>
                 </div>
                 <div class='city' itemprop='location'></div>
                 <div class='weather-type' itemprop='weatherType'></div>
             </section>
         </template>
+
         <template id='additional'>
             <section class='additional'>
                 <div class='main-precip' itemprop='precip'></div>
-                <div class='windspeed' itemprop='windspeed'></div>
-                <div class='wind-direction' itemprop='windDirection'></div>
+                <div class='wind' itemprop='wind'></div>
                 <div class='humidity' itemprop='humidity'></div>
             </section>
         </template>
+        
         <template id='hourly'>
             <div class='hourly' itemprop=''>
                 <div class='time' itemprop='dateTime'></div>
@@ -38,14 +39,14 @@
             </div>
         </template>
         
-        <!-- <header> -->
+        <header>
             <form>
                 <input type='text' placeholder='City Name'>
                 <button type='button'>Search</button>
             </form>
             <!-- C/F switcher -->
             <!-- 12/24 hour switcher -->
-        <!-- </header> -->
+        </header>
 
         <main>
             <section class='current' itemprop='currentData'></section>
