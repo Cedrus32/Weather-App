@@ -41,16 +41,16 @@ const callHandler = (() => {
                                          location: currentWeather.name,
                                          weatherType: currentWeather.weather[0].main,
                                         },
-                           additionalData: {precip: `${Math.round(forecastWeather.list[0].pop * 100)}% chance of precipitation`,
-                                            humidity: `${Math.round(currentWeather.main.humidity)}% humidity`,
-                                            wind: `wind from ${convertToCompassDirection(currentWeather.wind.deg)} at ${Math.round(currentWeather.wind.speed)} mph`
+                           additionalData: {precip: `${Math.round(forecastWeather.list[0].pop * 100)}%`,
+                                            humidity: `${Math.round(currentWeather.main.humidity)}%`,
+                                            wind: `${convertToCompassDirection(currentWeather.wind.deg)}, ${Math.round(currentWeather.wind.speed)} mph`
                                            }
                           };
         let forecastData = {};
         for (let i = 0; i <= 8; i++) {
             let hourlyData = {dateTime: convertToLocalTime(forecastWeather.list[i].dt),
                               weatherType: forecastWeather.list[i].weather[0].main,
-                              precip: `${Math.round(forecastWeather.list[i].pop * 100)} chance of precipitation`,
+                              precip: `${Math.round(forecastWeather.list[i].pop * 100)}%`,
                               temp: `${Math.round(forecastWeather.list[i].main.temp)}°F`,
                              }
             forecastData[i] = hourlyData;

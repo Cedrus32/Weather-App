@@ -24,12 +24,21 @@
 
         <template id='additional'>
             <section class='additional'>
-                <div class='main-precip' itemprop='precip'></div>
-                <div class='wind' itemprop='wind'></div>
-                <div class='humidity' itemprop='humidity'></div>
+                <div class='main-precip' itemprop='precip'>
+                    <span class='heading'>Chance of Precip.</span>
+                    <span class='data'></span>
+                </div>
+                <div class='wind' itemprop='wind'>
+                    <span class='heading'>Wind</span>
+                    <span class='data'></span>
+                </div>
+                <div class='humidity' itemprop='humidity'>
+                    <span class='heading'>Humidity</span>
+                    <span class='data'></span>
+                </div>
             </section>
         </template>
-        
+
         <template id='hourly'>
             <div class='hourly' itemprop=''>
                 <div class='time' itemprop='dateTime'></div>

@@ -44,11 +44,19 @@ const display = (() => {
             }
             section.appendChild(sectionChild);
             sectionChild = section.children[i];
+            console.log(sectionChild);
             for (let j = 0; j < (sectionChild.childElementCount); j++) {
                 let div;
+                let span;
                 let itemprop;
                 let datapoint;
                 switch (true) {
+                    case (i === 0 && j !== 2):
+                        div = sectionChild.children[j];
+                        itemprop = div.getAttribute('itemprop');
+                        datapoint = dataChunk[itemprop];
+                        div.textContent = datapoint;
+                        break;
                     case (i === 0 && j === 2):
                         for (let k = 0; k < 2; k++) {
                             div = sectionChild.children[j].children[k];
@@ -57,11 +65,12 @@ const display = (() => {
                             div.textContent = datapoint;
                         }
                         break;
-                    default:
+                    case (i === 1):
                         div = sectionChild.children[j];
+                        span = div.children[1];
                         itemprop = div.getAttribute('itemprop');
                         datapoint = dataChunk[itemprop];
-                        div.textContent = datapoint;
+                        span.textContent = datapoint;
                 }
             }
         }

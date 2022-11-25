@@ -3,6 +3,7 @@ main,
 .primary,
 .additional,
 .minmax-temp,
+.additional div,
 .forecast,
 .hourly {
     display: flex;
@@ -12,6 +13,7 @@ main,
 main,
 .current,
 .primary,
+.additional div,
 .hourly {
     flex-flow: column;
 }
