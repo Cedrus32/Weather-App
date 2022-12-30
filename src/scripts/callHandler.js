@@ -3,7 +3,6 @@ import events from './events.js';
 // & makes API calls, scrubs resolution data for DOM
 
 // ! add support for 12-hour times
-// ! add support for celcius
 // ! add support for daylight-savings (separate API)
 
 const callHandler = (() => {
@@ -19,7 +18,9 @@ const callHandler = (() => {
     // methods
     async function callAPI(location) {
         try {
-            currentLocation = location;
+            if (location !== currentLocation) {
+                currentLocation = location;
+            }
             const fetchURLs = [`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${unitsSystem}`,
                                `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=${unitsSystem}`,
                               ];
@@ -165,10 +166,21 @@ const callHandler = (() => {
         }
         callAPI(currentLocation);
     }
+    function setTimeUnits() {
+        switch (unitsTime) {
+            case 24:
+                unitsTime = 12;
+                break;
+            case 12:
+                unitsTime = 24;
+        }
+        callAPI(currentLocation);
+    }
 
     // event subscriptions
     events.subscribe('callAPI', callAPI);   // published by index.js, forms.js (getSearchValue)
     events.subscribe('setTempUnits', setTempUnits); // published by form.js (toggleCF)
+    events.subscribe('setTimeUnits', setTimeUnits); // published by form.js (toggleTime)
 
     // make public
     return {

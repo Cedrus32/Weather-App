@@ -4,18 +4,19 @@ import events from './events.js';
 
 const form = (() => {
     // data
-    let unitsCF = '°F';
-    let unitsTime = '12 hr';
+    let unitsCF = 'F';
+    let unitsTime = 12;
 
     // cache DOM
     const searchBox = document.querySelector('input');
     const searchButton = document.getElementById('search');
     const switchCF = document.getElementById('cf-switch');
-    // const switchTime = document.getElementById('time-switch');
+    const switchTime = document.getElementById('time-switch');
 
     // bind eventListeners
     searchButton.addEventListener('click', getSearchValue);
     switchCF.addEventListener('click', toggleCF);
+    switchTime.addEventListener('click', toggleTime);
     
 
     // methods
@@ -26,15 +27,27 @@ const form = (() => {
     }
     function toggleCF() {
         // console.log('enter toggleCF()...');
-        events.publish('setTempUnits', ''); // subscribed by callHandler.js
         switch (unitsCF) {
             case '°F':
-                unitsCF = '°C';
+                unitsCF = 'C';
                 break;
             case '°C':
-                unitsCF = '°F';
+                unitsCF = 'F';
         }
-        switchCF.textContent = unitsCF;
+        switchCF.textContent = `°${unitsCF}`;
+        events.publish('setTempUnits', ''); // subscribed by callHandler.js
+    }
+    function toggleTime() {
+        // coonsole.log('enter toggleTime()...');
+        switch (unitsTime) {
+            case 24:
+                unitsTime = 12;
+                break;
+            case 12:
+                unitsTime = 24;
+        }
+        switchTime.textContent = `${unitsTime} hour`;
+        events.publish('setTimeUnits', ''); // subscribed by callHandler.js
     }
 })();
 
